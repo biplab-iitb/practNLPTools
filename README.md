@@ -27,10 +27,12 @@ A computer with 500mb memory, Java Runtime Environment (1.7 preferably, works wi
 
 If you are in linux:
 run:
+
     sudo python setup.py install 
 
 If you are in windows:
 run this commands as administrator:
+
     sudo python setup.py install
   
 
