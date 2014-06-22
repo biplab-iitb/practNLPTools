@@ -19,7 +19,17 @@ Features
 2. We use only dependency Extractor Component of Stanford Parser, which takes in Syntactic Parse from SENNA and applies dependency Extraction. So there is no need to load parsing models for Stanford Parser, which takes time.
 3. Easy to use.
 
+Installation
+=============
 
+If you are in linux:
+  run:
+    sudo python setup.py install 
 
+If you are in windows:
+  run this commands as administrator:
+    sudo python setup.py install
+  
 
-
+Examples
+=============
