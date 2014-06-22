@@ -24,12 +24,13 @@ Installation
 
 Requires:
 A computer with 500mb memory, Java Runtime Environment (1.7 preferably, works with 1.6 too, but didnt test.) installed and python.
+
 If you are in linux:
-  run:
+run:
     sudo python setup.py install 
 
 If you are in windows:
-  run this commands as administrator:
+run this commands as administrator:
     sudo python setup.py install
   
 
