@@ -4,7 +4,7 @@ practNLPTools
 Practical Natural Language Processing Tools for Humans.<br>
 practNLPTools is a pythonic library over SENNA and Stanford Dependency Extractor.
 
-Features
+Functionality
 =============
 1. Semantic Role Labeling
 2. Syntactic Parsing
@@ -12,4 +12,14 @@ Features
 4. Named Entity Recognisation (NER)
 5. Dependency Parsing
 6. Shallow Chunking
+
+Features
+=============
+1. Fast: SENNA is written is C. So it is Fast.
+2. We use only dependency Extractor Component of Stanford Parser, which takes in Syntactic Parse from SENNA and applies dependency Extraction. So there is no need to load parsing models for Stanford Parser, which takes time.
+3. Easy to use.
+
+
+
+
 
