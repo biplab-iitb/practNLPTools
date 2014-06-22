@@ -84,9 +84,20 @@ dobj(making-9, it.-10)
 
 
 '''If there are many sentences to annotate, Use batch Mode, annotator.getBatchAnnotations(sentences,dep_parse=True/False). Returns a list of annotation dictionaries.'''
-
 \>\>\>annotator.getBatchAnnotations(["He created the robot and broke it after making it.","Biplab is a good boy."],dep_parse=True)
 [{'dep_parse': 'nsubj(created-2, He-1)\nroot(ROOT-0, created-2)\ndet(robot-4, the-3)\ndobj(created-2, robot-4)\nconj_and(created-2, broke-6)\ndobj(broke-6, it-7)\nprepc_after(broke-6, making-9)\ndobj(making-9, it.-10)', 'chunk': [('He', 'S-NP'), ('created', 'S-VP'), ('the', 'B-NP'), ('robot', 'E-NP'), ('and', 'O'), ('broke', 'S-VP'), ('it', 'S-NP'), ('after', 'S-PP'), ('making', 'S-VP'), ('it.', 'S-NP')], 'pos': [('He', 'PRP'), ('created', 'VBD'), ('the', 'DT'), ('robot', 'NN'), ('and', 'CC'), ('broke', 'VBD'), ('it', 'PRP'), ('after', 'IN'), ('making', 'VBG'), ('it.', 'PRP')], 'srl': [{'A1': 'the robot', 'A0': 'He', 'V': 'created'}, {'A1': 'it', 'A0': 'He', 'AM-TMP': 'after making it.', 'V': 'broke'}, {'A1': 'it.', 'A0': 'He', 'V': 'making'}], 'syntax_tree': '(S1(S(NP(PRP He))(VP(VP(VBD created)(NP(DT the)(NN robot)))(CC and)(VP(VBD broke)(NP(PRP it))(PP(IN after)(S(VP(VBG making)(NP(PRP it.)))))))))', 'verbs': ['created', 'broke', 'making'], 'words': ['He', 'created', 'the', 'robot', 'and', 'broke', 'it', 'after', 'making', 'it.'], 'ner': [('He', 'O'), ('created', 'O'), ('the', 'O'), ('robot', 'O'), ('and', 'O'), ('broke', 'O'), ('it', 'O'), ('after', 'O'), ('making', 'O'), ('it.', 'O')]}, {'dep_parse': 'nsubj(boy-5, Biplab-1)\ncop(boy-5, is-2)\ndet(boy-5, a-3)\namod(boy-5, good-4)\nroot(ROOT-0, boy-5)', 'chunk': [('Biplab', 'S-NP'), ('is', 'S-VP'), ('a', 'B-NP'), ('good', 'I-NP'), ('boy', 'E-NP'), ('.', 'O')], 'pos': [('Biplab', 'NNP'), ('is', 'VBZ'), ('a', 'DT'), ('good', 'JJ'), ('boy', 'NN'), ('.', '.')], 'srl': [], 'syntax_tree': '(S1(S(NP(NNP Biplab))(VP(VBZ is)(NP(DT a)(JJ good)(NN boy)))(. .)))', 'verbs': [], 'words': ['Biplab', 'is', 'a', 'good', 'boy', '.'], 'ner': [('Biplab', 'S-PER'), ('is', 'O'), ('a', 'O'), ('good', 'O'), ('boy', 'O'), ('.', 'O')]}]
 
   </pre>
 
+Note: For illustration purposes we have used:
+\>\>\>annotator.getAnnotations("He created the robot and broke it after making it.",dep_parse=True)['dep_parse']
+
+Better method is:
+annotation=annotator.getAnnotations("He created the robot and broke it after making it.",dep_parse=True)
+
+ner=annotation['ner'], srl=annotation['srl'] is better way.
+
+Issues
+=============
+
+TO DO :)
