@@ -37,6 +37,7 @@ Examples
 =============
 
 Chunk and NER use BIOS Tagging Scheme. Which expands to:
+
 1. S = Tag covers Single Word.
 2. B = Tag Begins with the Word.
 3. I = Word is internal to tag which has begun.
@@ -45,7 +46,9 @@ Chunk and NER use BIOS Tagging Scheme. Which expands to:
 
 Example:
   ('Biplab', 'S-NP'), ('is', 'S-VP'), ('a', 'B-NP'), ('good', 'I-NP'), ('boy', 'E-NP'), ('.', 'O')
-  means: 
+  
+  means:
+  
   [Biplab]NP [is]VP [a good boy]NP [.]O
   
   <pre>
