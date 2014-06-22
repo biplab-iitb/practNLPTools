@@ -129,7 +129,7 @@ Issues
   gcc -O3 -o senna-senna-osx *.c (For Mac)
   windows: I never compiled C files in Windows.
   then do python setup.py install
-3. Any other, mail to: biplab12@cse.iitb.ac.in
+3. Any other, you can la la laa la laaaa to  biplab12  (A T) cse d0t iitb d0t ac d0t in 
 
 TO DO
 =============
