@@ -119,4 +119,19 @@ ner=annotation['ner'], srl=annotation['srl'] is better way.
 Issues
 =============
 
-TO DO :)
+1. You cannot give sentence with '(' ')', that is left bracket aor right bracket. It will end up in returning no result. So please clean Sentences before sending to annotator.
+2. Other issue might be senna executable built for various platforms. I have not experienced it, but its highly probable. If you get this issuse:
+  go to folder practnlptools
+  i.e: cd practnlptools
+  and do:
+  gcc -O3 -o senna-linux64 *.c  (For linux 64 bit)
+  gcc -O3 -o senna-linux32 *.c  (For linux 32 bit)
+  gcc -O3 -o senna-senna-osx *.c (For Mac)
+  windows: I never compiled C files in Windows.
+  then do python setup.py install
+3. Any other, mail to: biplab12@cse.iitb.ac.in
+
+TO DO
+=============
+1. Make Dependency Parse more Accessible.
+2. Include instruction to build senna for windows
