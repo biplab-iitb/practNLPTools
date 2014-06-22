@@ -37,7 +37,7 @@ Examples
 
 '''Annotator is the only class you need. Create an annotator object.'''
 \>\>\>from practnlptools.tools import Annotator
-\>\>\>fannotator=Annotator()
+\>\>\>annotator=Annotator()
 
 
 '''Using Function getAnnoations(sentence) returns a dictionary of annotations.'''
