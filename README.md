@@ -33,7 +33,7 @@ run:
 If you are in windows:
 run this commands as administrator:
 
-    sudo python setup.py install
+    python setup.py install
   
 
 Examples
