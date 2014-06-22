@@ -34,15 +34,13 @@ If you are in windows:
 Examples
 =============
   <pre>
-  from practnlptools.tools import Annotator
-  annotator=Annotator()
+  >>from practnlptools.tools import Annotator
+  >>annotator=Annotator()
   
-  annotator.getAnnotations("Biplab is a good boy.")['pos']
-  gives :
+  >>annotator.getAnnotations("Biplab is a good boy.")['pos']
   [('Biplab', 'NNP'), ('is', 'VBZ'), ('a', 'DT'), ('good', 'JJ'), ('boy', 'NN'), ('.', '.')]
   
-  annotator.getAnnotations("Biplab is a good boy.")['ner']
-  gives:
+  >>annotator.getAnnotations("Biplab is a good boy.")['ner']
   [('Biplab', 'S-PER'), ('is', 'O'), ('a', 'O'), ('good', 'O'), ('boy', 'O'), ('.', 'O')]
   
   </pre>
