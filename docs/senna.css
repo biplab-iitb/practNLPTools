@@ -1,0 +1,74 @@
+body {
+  font: 80% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+  margin: 4px 2em 0 1em;
+  text-align: justify;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    background-color: inherit;
+    font-size: 100%;
+    font-weight: normal;
+    margin: 0 0 0.5em 0;
+    padding: 0.5em 0 0 0;
+    border-bottom: 1px solid #ccc;
+    clear: left;
+}
+
+h1 {font-size: 160%; margin-left: 0px; font-weight: bold;}
+h2 {font-size: 150%; margin-left: 20px;}
+h3 {font-size: 140%; margin-left: 40px; border-bottom: none; font-weight: bold;}
+h4 {font-size: 120%; margin-left: 60px; border-bottom: none; font-weight: bold;}
+h5 {font-size: 100%; margin-left: 80px; border-bottom: none; font-weight: bold;}
+
+.level1 {margin-left: 3px;}
+.level2 {margin-left: 23px;}
+.level3 {margin-left: 43px;}
+.level4 {margin-left: 63px;}
+.level5 {margin-left: 83px;}
+
+ul {
+  line-height: 1.5em;
+  list-style-type: square;
+  list-style-image: none;
+  margin: 0em 0 0em 0em;
+}
+
+pre {
+  font-size: 120%;
+  padding: 0.5em;
+  border: 1px dashed #ccc;
+  overflow: auto;
+  background-color: #efe;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 3px;
+  border: 1px solid #ccc;
+  background-color: #efe;
+}
+
+td {
+  padding: 3px;
+  border: 1px solid #ccc;
+}
+
+code {
+  font-size: 120%;
+}
+
+div.level1 {margin-left: 3px;}
+div.level2 {margin-left: 23px;}
+.level3 {margin-left: 43px;}
+.level4 {margin-left: 63px;}
+.level5 {margin-left: 83px;}
+
+hr{border:0px;border-top:1px solid #ccc;text-align:center;height:0px;}

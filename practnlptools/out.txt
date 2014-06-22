@@ -1,0 +1,12 @@
+nsubj(causes-2, Gravitation-1)
+xsubj(go-5, Gravitation-1)
+root(ROOT-0, causes-2)
+dobj(causes-2, earth-3)
+aux(go-5, to-4)
+xcomp(causes-2, go-5)
+dobj(go-5, round-6)
+xcomp(causes-2, round-8)
+conj_and(go-5, round-8)
+det(sun-10, the-9)
+dobj(round-8, sun-10)
+

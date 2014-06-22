@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+      SENNA
+    </title>
+    <link href="senna.css" rel="stylesheet" type="text/css" />
+  </head>
+
+<body>
+
+<center>
+<img src="senna.jpg">
+</center>
+
+<h1>SENNA</h1>
+<div class="level1">
+<p>
+  SENNA is a software distributed under
+a <a href="license.html">non-commercial license</a>, which outputs a host of
+Natural Language Processing (NLP) predictions: part-of-speech (POS) tags,
+chunking (CHK), name entity recognition (NER), semantic role labeling
+(SRL) and syntactic parsing (PSG).
+</p>
+
+<p>
+  SENNA is fast because it uses a simple architecture, self-contained
+because it does not rely on the output of existing NLP system, and accurate
+because it offers state-of-the-art or near state-of-the-art performance.
+</p>
+
+<p>
+  SENNA is written in ANSI C, with about 3500 lines of code. It requires
+about 200MB of RAM and should run on any IEEE floating point computer.
+</p>
+
+<p>
+Proceed to the <a href="download.html">download page</a>. Read
+the <a href="#compilation">compilation section</a> in you want to compile
+SENNA yourself. Try out a <a href="#check">sanity check</a>. And read about
+the <a href="#usage">usage</a>.
+</p>
+
+</div>
+
+<h2>New in SENNA v3.0 (August 2011)</h2>
+<div class="level2">
+<p>
+Here are the main changes compared to SENNA v2.0:
+<ul>
+<li><b>Syntactic parsing.</b></li>
+<li>We now include our <b>original word embeddings</b>, used to trained each task.</li>
+<li>Bug correction: now outputs correctly tokens made of numbers (instead of replacing numbers by "0").</li>
+<li>Option <code>-offsettags</code>, which outputs start/end offsets (in the sentence) of each token.</li>
+</ul>
+</p>
+<p>
+DISCLAIMER: Our word embeddings differ
+from <a href="http://metaoptimize.com/projects/wordreprs">Joseph Turian's
+embeddings</a> (even though it is unfortunate they have been called
+"Collobert & Weston embeddings" in several papers). Our embeddings have
+been trained for about 2 months, over Wikipedia.
+</p>
+</div>
+
+<h2>Details</h2>
+<div class="level2">
+<p>
+SENNA's details concerning POS, CHK, NER and SRL tasks are included in
+a <a href="http://www.jmlr.org">JMLR</a> paper. Later, the techniques have
+been extended and applied to syntactic parsing (PSG), and published in a
+AISTATS paper. If you use SENNA, please consider citing these appropriate
+papers.
+
+<p>
+R. Collobert, J. Weston, L. Bottou, M. Karlen, K. Kavukcuoglu and
+P. Kuksa. <b><a href="http://ronan.collobert.com/pub/matos/2011_nlp_jmlr.pdf">Natural
+Language Processing (Almost) from Scratch</a></b>,
+<i>Journal of Machine Learning Research (JMLR)</i>, 2011.
+</p>
+
+<p>
+R. Collobert. <b><a href="http://ronan.collobert.com/pub/matos/2011_parsing_aistats.pdf">Deep
+Learning for Efficient Discriminative Parsing</a></b>, in <i>International
+Conference on Artificial Intelligence and Statistics (AISTATS)</i>, 2011.
+</p>
+
+</p>
+</div>
+
+<h2>Download</h2>
+<div class="level2">
+SENNA sources are provided so you can adapt SENNA to your needs (under our license constraints), and assess
+its simplicity.
+<p>
+We also provide binaries for a couple of platforms, in the same
+archive. The name of the executable for each platform is given as follow:
+<ul>
+<li>Linux 64 bits: <code>senna-linux64</code></li>
+<li>Windows 32 bits: <code>senna-win32.exe</code></li>
+<li>Mac OS X Snow Leopard Intel 64 bits: <code>senna-osx</code></li>
+</ul>
+<p>
+Everything is included in a single tar-gzipped file (<b>185MB</b>). Proceed
+to the <a href="download.html">download page</a>.
+</div>
+
+<h2 id="compilation">Compilation</h2>
+<div class="level2">
+
+Compiling SENNA is straightforward, as it is written in ANSI C and does not
+require external libraries. For speed it is however recommended to use the
+<a href="http://software.intel.com/en-us/intel-mkl">Intel MKL library</a>.
+
+</div>
+
+<h3>Linux</h3>
+<div class="level3">
+In Linux/Unix/MacOS X systems, use gcc compiler:
+<pre>
+gcc -o senna -O3 -ffast-math *.c
+</pre>
+You might want to add additional suitable optimization flags for your platform.
+SENNA also compiles fine with the Intel compiler (icc).
+<p>
+If speed is critical, we recommend to compile SENNA with the Intel MKL
+library, which provides a very efficient BLAS. Add the definition <code>USE_MKL_BLAS</code>,
+as well as correct MKL libraries and include path.
+<pre>
+gcc -o senna -O3 -ffast-math *.c -DUSE_MKL_BLAS [...]
+</pre>
+<p>
+SENNA also compiles with ATLAS BLAS. On our platform, the handcrafted code compiled with the gcc command line
+shown above was faster. However, if you want to use it, you can compile it with:
+<pre>
+gcc -o senna -O3 -ffast-math *.c -DUSE_ATLAS_BLAS [...]
+</pre>
+</div>
+
+<h3>Mac OS X</h3>
+<div class="level3">
+
+Assuming you installed the XCode tools (which are provided on the Mac OS X DVD/CDs), simply compile with gcc:
+<pre>
+gcc -o senna -O3 -ffast-math *.c -DUSE_APPLE_BLAS -framework Accelerate
+</pre>
+This will compile against Apple BLAS libraries included in your system. As for Linux, it is recommended to use
+Intel MKL library instead of Apple BLAS libraries. The following command line can be invoked (replacing
+the dots by the correct library and include paths):
+<pre>
+gcc -o senna -O3 -ffast-math *.c -DUSE_MKL_BLAS [...]
+</pre>
+</div>
+
+<h3>Windows</h3>
+<div class="level3">
+
+SENNA compiles fine under Windows. You will have to create
+a <code>Win32</code> console project under Microsoft Visual Studio (you can
+download the <a href="http://www.microsoft.com/exPress">Express Edition</a>). Add all the includes and C file
+into the project, and build the solution. You can also use the command line (after opening a Visual Studio Command Prompt)
+in the following way:
+<pre>
+cl /O2 /Fesenna.exe *.c
+</pre>
+
+<p>
+We recommend to use Intel MKL for speed. See your MKL manual for adding proper libraries and includes. Add also
+the preprocessor definition <code>USE_MKL_BLAS</code> in the project. Using the command line, it would be:
+<pre>
+cl /O2 /Fesenna.exe *.c /DUSE_MKL_BLAS [...]
+</pre>
+</div>
+
+<h2 id="check">Sanity Check</h2>
+<div class="level2">
+Run in a console the following command:
+<pre>
+senna < sanity-test-input.txt > sanity-test-result.txt
+</pre>
+SENNA should create a file <code>sanity-test-result.txt</code> which should be
+identical to the provided <code>sanity-test-output.txt</code> file.
+<p>
+The file <code>sanity-test-input.txt</code> comes from
+the <a href="http://www.cnts.ua.ac.be/conll2000/chunking">CoNLL 2000
+chunking testing set</a>. SENNA will output all tags for this file. It
+should run in about 90 seconds on a decent computer (using MKL).
+</div>
+
+<h2 id="usage">Usage</h2>
+<div class="level2">
+
+SENNA reads input sentences from the standard input and outputs tags into
+the standard output. The most likely command line usage for SENNA is therefore:
+<pre>
+senna [options] < input.txt > output.txt
+</pre>
+Of course you can run SENNA in an interactive mode without the
+"pipes" <code>&lt;</code> and <code>&gt;</code>.
+
+<p>
+<em>Each input line is considered as a sentence</em>. SENNA has its own
+tokenizer for separating words, which can be deactivated with
+the <code>-usrtokens</code> option.
+
+<p>
+SENNA outputs one line per "token", with all the corresponding tags (in
+IOBES format) on the same line. An empty line is inserted between each
+output sentence. The first column is the token. Tags for all task then
+follow by default (POS, CHK, NER and SRL). Tags for SRL are preceded by a
+column which indicates if SENNA considered the token as a SRL verb or not
+("-"). Then, there is one column per SRL verb.
+
+<p>
+SENNA supports the following options:
+<ul>
+<li><code>-h</code><br>Display an inline help.</li>
+<li><code>-verbose</code><br>Display model informations (on the standard error output, so it does not mess up
+  the tag outputs).</li>
+<li><code>-notokentags</code><br>Do not output tokens (first output column).</li>
+<li><code>-offsettags</code><br>Output start/end character offset (in the sentence), for each token.</li>
+<li><code>-iobtags</code><br>Output IOB tags instead of IOBES.</li>
+<li><code>-brackettags</code><br>Output 'bracket' tags instead of IOBES.</li>
+<li><code>-path &lt;path&gt;</code><br>Specify the path to the SENNA data/ and hash/ directories, if you do not run
+SENNA in its original directory. The path must end by "/". </li>
+<li><code>-usrtokens</code><br>Use user's tokens (space separated) instead of SENNA tokenizer.</li>
+<li><code>-posvbs</code><br>Use verbs outputed by the POS tagger instead of SRL style verbs for SRL task. You might want
+to use this, as the SRL training task ignore some verbs (many "be" and "have") which might be not what you want.</li>
+<li><code>-usrvbs &lt;file&gt;</code><br> Use user's verbs (given in &lt;file&gt;) instead of SENNA verbs for SRL task. The file
+must contain one line per token, with an empty line between each sentence. A line which is not a "-" corresponds to a verb.</li>
+<li><code>-pos<br>-chk<br>-ner<br>-srl<br>-psg</code><br>Instead of outputing tags for all tasks, SENNA will output tags for the specified
+(one or more) tasks.</li>
+</ul>
+
+</div>
+
+<h2>Remarks</h2>
+
+<div class="level2">
+<p>
+SENNA does not handle <code>-LRB-, -RRB-,
+...</code> <a href="http://www.cis.upenn.edu/~treebank/tokenization.html">tokens</a>. Please,
+replace these tokens in your input text by the appropriate
+<code>(, ), ...</code>. Not replacing these tokens will have an impact on
+performance (for e.g., POS accuracy goes down, from <code>97.29%</code>
+to <code>97.00%</code>).
+</p>
+</div>
+
+<h2>Performance</h2>
+
+<div class="level2">
+<p>
+We report here SENNA performance in per-word accuracy for POS, and F1 score
+for all the other tasks. Timing corresponds to the time needed by SENNA to
+pass over the given test data set (Macbook Pro i7, 2.8GHz, Intel MKL). For PSG, F1 score is the one over all
+sentences (for sentences with less than 40 words, we get 88.5%).<br><br>
+
+<center>
+<table>
+<tr>
+<th>Task</th>
+<th>Benchmark</th>
+<th></th>
+<th>Performance</th>
+<th>Timing (s)</th>
+</tr>
+
+<tr>
+<td>Part of Speech (POS)</td>
+<td><a href="http://nlp.stanford.edu/pubs/tagging.pdf">(Toutanova et al, 2003)</a></td>
+<td>(Accuracy)</td>
+<td>97.29%</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>Chunking (CHK)</td>
+<td><a href="http://www.cnts.ua.ac.be/conll2000/chunking">CoNLL 2000</a></td>
+<td>(F1)</td>
+<td>94.32%</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td>Name Entity Recognition (NER)</td>
+<td><a href="http://www.cnts.ua.ac.be/conll2003/ner">CoNLL 2003</a></td>
+<td>(F1)</td>
+<td>89.59%</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td>Semantic Role Labeling (SRL)</td>
+<td><a href="http://www.lsi.upc.edu/~srlconll">CoNLL 2005</a></td>
+<td>(F1)</td>
+<td>75.49%</td>
+<td>36</td>
+</tr>
+
+<tr>
+<td>Syntactic Parsing (PSG)</td>
+<td><a href="http://acl.ldc.upenn.edu/J/J93/J93-2004.pdf">Penn Treebank</a></td>
+<td>(F1)</td>
+<td>87.92%</td>
+<td>74</td>
+</tr>
+
+</table>
+</center>
+</p>
+</div>
+
+<h2>Feedback</h2>
+
+<div class="level2">
+<p>
+Please email to <a href="mailto:ronan [at] collobert [dot] com">Ronan
+Collobert</a> for any problem report or positive feedback. We will be glad
+to hear from you.
+</p>
+<br><br>
+</div>
+
+</body>
