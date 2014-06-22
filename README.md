@@ -35,6 +35,19 @@ If you are in windows:
 
 Examples
 =============
+
+Chunk and NER use BIOS Tagging Scheme. Which expands to:
+1. S = Tag covers Single Word.
+2. B = Tag Begins with the Word.
+3. I = Word is internal to tag which has begun.
+4. E = Tag Ends with the Word.
+5. 0 = Other tags.
+
+Example:
+  ('Biplab', 'S-NP'), ('is', 'S-VP'), ('a', 'B-NP'), ('good', 'I-NP'), ('boy', 'E-NP'), ('.', 'O')
+  means: 
+  [Biplab]NP [is]VP [a good boy]NP [.]O
+  
   <pre>
 
 '''Annotator is the only class you need. Create an annotator object.'''
@@ -58,7 +71,8 @@ Examples
 \>\>\>annotator.getAnnotations("Biplab is a good boy.")['ner']
 [('Biplab', 'S-PER'), ('is', 'O'), ('a', 'O'), ('good', 'O'), ('boy', 'O'), ('.', 'O')]
 
-\>\>\> annotator.getAnnotations("Biplab is a good boy.")['chunk'][('Biplab', 'S-NP'), ('is', 'S-VP'), ('a', 'B-NP'), ('good', 'I-NP'), ('boy', 'E-NP'), ('.', 'O')]
+\>\>\> annotator.getAnnotations("Biplab is a good boy.")['chunk']
+[('Biplab', 'S-NP'), ('is', 'S-VP'), ('a', 'B-NP'), ('good', 'I-NP'), ('boy', 'E-NP'), ('.', 'O')]
 
 
 '''To list the verbs for which semantic roles are found.'''
