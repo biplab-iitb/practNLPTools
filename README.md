@@ -33,11 +33,11 @@ If you are in windows:
 
 Examples
 =============
-  <pre>
+  <code>
   >>> from practnlptools.tools import Annotator
   >>> annotator=Annotator()
   >>> annotator.getAnnotations("Biplab is a good boy.")['pos']
   [('Biplab', 'NNP'), ('is', 'VBZ'), ('a', 'DT'), ('good', 'JJ'), ('boy', 'NN'), ('.', '.')]
   >>> annotator.getAnnotations("Biplab is a good boy.")['ner']
   [('Biplab', 'S-PER'), ('is', 'O'), ('a', 'O'), ('good', 'O'), ('boy', 'O'), ('.', 'O')]
-  </pre>
+  </code>
