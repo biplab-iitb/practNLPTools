@@ -1,7 +1,7 @@
 practNLPTools
 =============
 
-Practical Natural Language Processing Tools for Humans.
+Practical Natural Language Processing Tools for Humans.<br>
 practNLPTools is a pythonic library over SENNA and Stanford Dependency Extractor.
 
 Features
