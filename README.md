@@ -22,6 +22,8 @@ Features
 Installation
 =============
 
+Requires:
+A computer with 500mb memory, Java Runtime Environment (1.7 preferably, works with 1.6 too, but didnt test.) installed and python.
 If you are in linux:
   run:
     sudo python setup.py install 
