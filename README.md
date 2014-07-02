@@ -145,9 +145,9 @@ Go to folder practnlptools
 4. Issues with "pip install practnlptools"
    
 You might receive following Error while running:
-   
-    Traceback (most recent call last):
-  File "test.py", line 3, in <module>
+<pre>  
+ Traceback (most recent call last):
+ File "test.py", line 3, in <module>
     print a.getAnnotations("This is a test.")
   File "/usr/local/lib/python2.7/dist-packages/practnlptools/tools.py", line 206, in getAnnotations
     senna_tags=self.getSennaTag(sentence)
@@ -158,7 +158,7 @@ You might receive following Error while running:
   File "/usr/lib/python2.7/subprocess.py", line 1249, in _execute_child
     raise child_exception
 OSError: [Errno 13] Permission denied
-
+</pre>
 To Fix this,you can do:
   chmod -R +x /usr/local/lib/python2.7/dist-packages/practnlptools/
    
