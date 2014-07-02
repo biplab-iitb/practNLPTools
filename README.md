@@ -142,6 +142,26 @@ Go to folder practnlptools
     python setup.py install
 
 3. Any other, you can la la laa la laaaa to  biplab12  (A T) cse d0t iitb d0t ac d0t in 
+4. Issues with "pip install practnlptools"
+   
+You might receive following Error while running:
+   
+    Traceback (most recent call last):
+  File "test.py", line 3, in <module>
+    print a.getAnnotations("This is a test.")
+  File "/usr/local/lib/python2.7/dist-packages/practnlptools/tools.py", line 206, in getAnnotations
+    senna_tags=self.getSennaTag(sentence)
+  File "/usr/local/lib/python2.7/dist-packages/practnlptools/tools.py", line 88, in getSennaTag
+    p = subprocess.Popen(senna_executable,stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+  File "/usr/lib/python2.7/subprocess.py", line 679, in __init__
+    errread, errwrite)
+  File "/usr/lib/python2.7/subprocess.py", line 1249, in _execute_child
+    raise child_exception
+OSError: [Errno 13] Permission denied
+
+To Fix this,you can do:
+  chmod -R +x /usr/local/lib/python2.7/dist-packages/practnlptools/
+   
 
 TO DO
 =============
