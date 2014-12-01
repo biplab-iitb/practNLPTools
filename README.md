@@ -18,6 +18,7 @@ Features
 1. Fast: SENNA is written is C. So it is Fast.
 2. We use only dependency Extractor Component of Stanford Parser, which takes in Syntactic Parse from SENNA and applies dependency Extraction. So there is no need to load parsing models for Stanford Parser, which takes time.
 3. Easy to use.
+4. Platform Supported - Windows, Linux and Mac
 
 Installation
 =============
@@ -165,5 +166,9 @@ To Fix this,you can do:
 
 TO DO
 =============
-1. Make Dependency Parse more Accessible.
+1. Make Dependency Parse more Accessible[WIP].
 2. Include instruction to build senna for windows
+
+Author & Contributor
+===========================
+Biplab Ch Das & Vivek Kumar
