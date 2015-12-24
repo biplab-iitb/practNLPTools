@@ -164,11 +164,11 @@ To Fix this,you can do:
   chmod -R +x /usr/local/lib/python2.7/dist-packages/practnlptools/
    
 
-TO DO
-=============
-1. Make Dependency Parse more Accessible[WIP].
-2. Include instruction to build senna for windows
+Looking Forward for version 2.0
+=====================================
+It has been long time since I have been active. If my old computer is happy to co-operate (core 2 duo/ 3GB RAM). 
+I will like to implement the following.  
 
-Author & Contributor
-===========================
-Biplab Ch Das & Vivek Kumar
+1. Sentence to vector Embedding with LSTM.
+2. Memory Networks and Neural Question Answering System.
+3. Neural Machine Translation.
