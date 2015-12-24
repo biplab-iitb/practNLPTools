@@ -172,3 +172,6 @@ I will like to implement the following.
 1. Sentence to vector Embedding with LSTM.
 2. Memory Networks and Neural Question Answering System.
 3. Neural Machine Translation.
+4. Semantic Langauge Search.
+
+It is too much to ask for, given I get quite less time and some other resource constraints. I will try to release a version by Mid 2016.
