@@ -177,9 +177,5 @@ I will like to implement the following.
 It is too much to ask for, given I get quite less time and some other resource constraints. I will try to release a version by Mid 2016.
 
 Contributers
-=======================================
-The base version 1.0 is a glued up version with python code caling senna executable and java jar file.  The next minor version release will have contributions from:
-
-1. Vivek Kumar : Working in getting away with intermediate file writting for Dependency Parsing.
-2. Arijit Paul : Senna's executable is called each time. So he is working on hacking into senna's code to looking for loading the model once.
-3. Ayush Kumar : He is designing the code to be better stuctured and make it modular and extendable.
+===================================
+  das
