@@ -163,19 +163,3 @@ OSError: [Errno 13] Permission denied
 To Fix this,you can do:
   chmod -R +x /usr/local/lib/python2.7/dist-packages/practnlptools/
    
-
-Looking Forward for version 2.0
-=====================================
-It has been long time since I have been active. If my old computer is happy to co-operate (core 2 duo/ 3GB RAM). 
-I will like to implement the following.  
-
-1. Sentence to vector Embedding with LSTM.
-2. Memory Networks and Neural Question Answering System.
-3. Neural Machine Translation.
-4. Semantic Langauge Search.
-
-It is too much to ask for, given I get quite less time and some other resource constraints. I will try to release a version by Mid 2016.
-
-Contributers
-===================================
-  biplab das
