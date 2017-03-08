@@ -3,11 +3,8 @@ from distutils.command.install import INSTALL_SCHEMES
 files = ["practnlptools/*"]
 import os
 def walkdir(dirname):
-    rec_files=[]
-    for cur, _dirs, files in os.walk(dirname):
-    	rec_files+=[(cur,map(lambda f: os.path.join(cur,f),files))]
-    #print rec_files
-    return rec_files
+    # Source: http://thomas-cokelaer.info/blog/2012/03/how-to-embedded-data-files-in-python-using-setuptools/
+    return [(d, [os.path.join(d, f) for f in files]) for d,folders,files in os.walk(dirname)]
 #walkdir("practnlp")
 for scheme in INSTALL_SCHEMES.values():
     scheme['data'] = scheme['purelib']
