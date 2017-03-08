@@ -1,0 +1,5 @@
+# build files
+build/
+
+# temporary files
+*~
