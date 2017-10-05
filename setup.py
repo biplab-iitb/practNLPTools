@@ -15,9 +15,9 @@ for scheme in INSTALL_SCHEMES.values():
 setup(name = "practNLPTools",
     version = "1.0",
     description = "Practical Natural Language Processing for Humans.",
-    author = "Biplab Ch Das",
-    author_email = "biplab12@cse.iitb.ac.in",
-    url = "http://www.cse.iitb.ac.in/~biplab12",
+    author = "Jawahar",
+    author_email = "Jawahar273@gmail.com",
+    url = "jawahar273.gitbooks.io",
     #Name the folder where your packages live:
     #(If you have other packages (dirs) or modules (py files) then
     #put them into the package directory - they will be found 

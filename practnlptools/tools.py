@@ -2,13 +2,21 @@
 # Practical Natural Language Processing Tools (practNLPTools): Combination of Senna and Stanford dependency Extractor
 #
 # Copyright (C) 2014 PractNLP Project
-# Author: Biplab Ch Das' <bipla12@cse.iitb.ac.in>
+# Original Author: Biplab Ch Das' <bipla12@cse.iitb.ac.in>
+# Current Author: Jawahar S <jawahar273@gmail.com>
 # URL: <http://www.cse.iitb.ac.in/biplab12>
+# URL: http://jawahar273.gitbooks.io (or) http://github.com/jawahar273
 # For license information, see LICENSE.TXT
 
 """
 A module for interfacing with the SENNA and Stanford Dependency Extractor.
-SUPPORTED_OPERATIONS: It provides Part of Speech Tags, Semantic Role Labels, Shallow Parsing (Chunking), Named Entity Recognisation (NER), Dependency Parse and Syntactic Constituency Parse. 
+SUPPORTED_OPERATIONS: It provides
+Part of Speech Tags,
+Semantic Role Labels,
+Shallow Parsing (Chunking), 
+Named Entity Recognisation (NER),
+Dependency Parse and 
+Syntactic Constituency Parse. 
 
 Requirement: Java Runtime Environment :)
 """
@@ -16,11 +24,12 @@ import subprocess
 import os
 from platform import architecture, system
 class Annotator:
-	r"""
+	"""
     A general interface of the SENNA/Stanford Dependency Extractor pipeline that supports any of the
     operations specified in SUPPORTED_OPERATIONS.
 	
-    SUPPORTED_OPERATIONS: It provides Part of Speech Tags, Semantic Role Labels, Shallow Parsing (Chunking), Named Entity 	   	Recognisation (NER), Dependency Parse and Syntactic Constituency Parse. 
+    SUPPORTED_OPERATIONS: It provides Part of Speech Tags, Semantic Role Labels, Shallow Parsing (Chunking), 
+	Named Entity Recognisation (NER), Dependency Parse and Syntactic Constituency Parse. 
 
     Applying multiple operations at once has the speed advantage. For example,
     senna v3.0 will calculate the POS tags in case you are extracting the named
@@ -34,9 +43,25 @@ class Annotator:
     misalignment errors.
 
     Example:
+    """ 
+	def get_cos_name(self, os_name):
+		""""
+		get the executable binary with respect to the Os name.
+		"""
+		if os_name == 'Linux':
+		    bits = architecture()[0]
+		    if bits == '64bit':
+		    	executable='senna-linux64'
+		    elif bits == '32bit':
+			    executable='senna-linux32'
+		    else:
+			    executable='senna'
+		if os_name == 'Windows':
+		    executable='senna-win32.exe'
+		if os_name == 'Darwin':
+		    executable='senna-osx'
+		return executable
 
-        
-    """
 	def getSennaTagBatch(self,sentences):
 		input_data=""
 		for sentence in sentences:
@@ -44,63 +69,40 @@ class Annotator:
 		input_data=input_data[:-1]
 		package_directory = os.path.dirname(os.path.abspath(__file__))
 		os_name = system()
-		executable=""
-		if os_name == 'Linux':
-		    bits = architecture()[0]
-		    if bits == '64bit':
-		    	executable='senna-linux64'
-		    elif bits == '32bit':
-			executable='senna-linux32'
-		    else:
-			executable='senna'
-		if os_name == 'Windows':
-		    executable='senna-win32.exe'
-		if os_name == 'Darwin':
-		    executable='senna-osx'
+		executable=self.get_cos_name(os_name)
 		senna_executable = os.path.join(package_directory,executable)
 		cwd=os.getcwd()
 		os.chdir(package_directory)
 		p = subprocess.Popen(senna_executable,stdout=subprocess.PIPE, stdin=subprocess.PIPE)
-		senna_stdout = p.communicate(input=input_data)[0]
+		senna_stdout = p.communicate(input=input_data.encode('utf-8'))[0]
 		os.chdir(cwd)
-		return senna_stdout.split("\n\n")[0:-1]
+		return senna_stdout.decode().split("\n\n")[0:-1]
 
 	def getSennaTag(self,sentence):
 		input_data=sentence
 		package_directory = os.path.dirname(os.path.abspath(__file__))
 		os_name = system()
-		executable=""
-		if os_name == 'Linux':
-		    bits = architecture()[0]
-		    if bits == '64bit':
-		    	executable='senna-linux64'
-		    elif bits == '32bit':
-			executable='senna-linux32'
-		    else:
-			executable='senna'
-		if os_name == 'Windows':
-		    executable='senna-win32.exe'
-		if os_name == 'Darwin':
-		    executable='senna-osx'
+		executable=self.get_cos_name(os_name)
 		senna_executable = os.path.join(package_directory,executable)
 		cwd=os.getcwd()
 		os.chdir(package_directory)
 		p = subprocess.Popen(senna_executable,stdout=subprocess.PIPE, stdin=subprocess.PIPE)
-		senna_stdout = p.communicate(input=input_data)[0]
+		senna_stdout = p.communicate(input=input_data.encode('utf-8'))[0]
 		os.chdir(cwd)
 		return senna_stdout
+
 	def getDependency(self,parse):
 		package_directory = os.path.dirname(os.path.abspath(__file__))
 		cwd=os.getcwd()
 		os.chdir(package_directory)
-		parsefile=open(cwd+"/in.parse","w")
-		parsefile.write(parse)
-		parsefile.close()
-		p=subprocess.Popen(['java','-cp','stanford-parser.jar', 'edu.stanford.nlp.trees.EnglishGrammaticalStructure', '-treeFile', cwd+'/in.parse','-collapsed'],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+		with open(cwd+"/in.parse","w", encoding='utf-8') as parsefile:
+		     parsefile.write(parse)
+		p=subprocess.Popen(['java','-cp','stanford-parser.jar', 'edu.stanford.nlp.trees.EnglishGrammaticalStructure', '-treeFile', '{}/in.parse'.format(cwd),'-collapsed'],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 		p.wait()	
 		stanford_out=p.stdout.read()
 		os.chdir(cwd)
 		return stanford_out.strip()
+
 	def getBatchAnnotations(self,sentences,dep_parse=False):
 		annotations=[]	
 		batch_senna_tags=self.getSennaTagBatch(sentences)
@@ -110,16 +112,17 @@ class Annotator:
 			syntax_tree=""
 			for annotation in annotations:
 				syntax_tree+=annotation['syntax_tree']
-			dependencies=self.getDependency(syntax_tree).split("\n\n")
-			#print dependencies
+			dependencies=self.getDependency(syntax_tree).decode().split("\n\n")
+			#print (dependencies)
 			if (len(annotations)==len(dependencies)):
 				for (d,a) in zip(dependencies,annotations):
 					a["dep_parse"]=d
+			#print(annotations)
 		return annotations
 		
 	def getAnnotationsAfterTagging(self,senna_tags,dep_parse=False):
 		annotations={}
-		senna_tags=map(lambda x: x.strip(),senna_tags.split("\n"))
+		senna_tags=[x.strip() for x in senna_tags.split("\n")]
 		no_verbs=len(senna_tags[0].split("\t"))-6
 		words=[]
 		pos=[]
@@ -145,54 +148,55 @@ class Annotator:
 			role={}
 			i=0
 			temp=""
-			curr_labels=map(lambda x: x[j],srls)
+			curr_labels=[x[j] for x in srls]
 			for curr_label in curr_labels:
 				splits=curr_label.split("-")
 				if(splits[0]=="S"):
 					if(len(splits)==2):
 				        	if(splits[1]=="V"):
 				                	role[splits[1]]=words[i]
-				                else:
+				        	else:
 				                	if splits[1] in role:
 				                        	role[splits[1]]+=" "+words[i]
 				               		else:
 				                        	role[splits[1]]=words[i]
-				      	elif(len(splits)==3):
+					elif(len(splits)==3):
 				        	if splits[1]+"-"+splits[2] in role:
 				                	role[splits[1]+"-"+splits[2]]+=" "+words[i]
-				               	else:
+				        	else:
 				                	role[splits[1]+"-"+splits[2]]=words[i]  
 				elif(splits[0]=="B"):
 			       		temp=temp+" "+words[i]
-			       	elif(splits[0]=="I"):
+				elif(splits[0]=="I"):
 					temp=temp+" "+words[i]
-			      	elif(splits[0]=="E"):
+				elif(splits[0]=="E"):
 					temp=temp+" "+words[i]
-				       	if(len(splits)==2):
+					if(len(splits)==2):
 				        	if(splits[1]=="V"):
 				                	role[splits[1]]=temp.strip()
-				               	else:
+				        	else:
 				                   	if splits[1] in role:
 				                        	role[splits[1]]+=" "+temp
-				                             	role[splits[1]]=role[splits[1]].strip()
-				                        else:
-				                               	role[splits[1]]=temp.strip()
-				       	elif(len(splits)==3):
+				                        	role[splits[1]]=role[splits[1]].strip()
+				                   	else:
+				                            role[splits[1]]=temp.strip()
+					elif(len(splits)==3):
 				             	if splits[1]+"-"+splits[2] in role:
 				              		role[splits[1]+"-"+splits[2]]+=" "+temp
-				             		role[splits[1]+"-"+splits[2]]=role[splits[1]+"-"+splits[2]].strip()
-						else:
+				              		role[splits[1]+"-"+splits[2]]=role[splits[1]+"-"+splits[2]].strip()
+				             	else:
 				                	role[splits[1]+"-"+splits[2]]=temp.strip()
-				      	temp=""          
-			      	i+=1
+					temp=""
+			
+				i+=1
 			if("V" in role):
 				roles+=[role]
 		annotations['words']=words
-		annotations['pos']=zip(words,pos)
-		annotations['ner']=zip(words,ner)
+		annotations['pos']=list(zip(words,pos))
+		annotations['ner']=list(zip(words,ner))
 		annotations['srl']=roles
-		annotations['verbs']=filter(lambda x: x!="-",verb)
-		annotations['chunk']=zip(words,chunk)
+		annotations['verbs']=[x for x in verb if x!="-"]
+		annotations['chunk']=list(zip(words,chunk))
 		annotations['dep_parse']=""
 		annotations['syntax_tree']=""
 		for (w,s,p) in zip(words,syn,pos):
@@ -201,10 +205,11 @@ class Annotator:
 		if(dep_parse):
 			annotations['dep_parse']=self.getDependency(annotations['syntax_tree'])
 		return annotations		
+
 	def getAnnotations(self,sentence,dep_parse=False):
 		annotations={}
-		senna_tags=self.getSennaTag(sentence)
-		senna_tags=map(lambda x: x.strip(),senna_tags.split("\n"))
+		senna_tags=self.getSennaTag(sentence).decode()
+		senna_tags=[x.strip() for x in senna_tags.split("\n")]
 		no_verbs=len(senna_tags[0].split("\t"))-6
 		words=[]
 		pos=[]
@@ -230,54 +235,54 @@ class Annotator:
 			role={}
 			i=0
 			temp=""
-			curr_labels=map(lambda x: x[j],srls)
+			curr_labels=[x[j] for x in srls]
 			for curr_label in curr_labels:
 				splits=curr_label.split("-")
 				if(splits[0]=="S"):
 					if(len(splits)==2):
 				        	if(splits[1]=="V"):
 				                	role[splits[1]]=words[i]
-				                else:
+				        	else:
 				                	if splits[1] in role:
 				                        	role[splits[1]]+=" "+words[i]
 				               		else:
 				                        	role[splits[1]]=words[i]
-				      	elif(len(splits)==3):
+					elif(len(splits)==3):
 				        	if splits[1]+"-"+splits[2] in role:
 				                	role[splits[1]+"-"+splits[2]]+=" "+words[i]
-				               	else:
+				        	else:
 				                	role[splits[1]+"-"+splits[2]]=words[i]  
 				elif(splits[0]=="B"):
 			       		temp=temp+" "+words[i]
-			       	elif(splits[0]=="I"):
+				elif(splits[0]=="I"):
 					temp=temp+" "+words[i]
-			      	elif(splits[0]=="E"):
+				elif(splits[0]=="E"):
 					temp=temp+" "+words[i]
-				       	if(len(splits)==2):
+					if(len(splits)==2):
 				        	if(splits[1]=="V"):
 				                	role[splits[1]]=temp.strip()
-				               	else:
+				        	else:
 				                   	if splits[1] in role:
 				                        	role[splits[1]]+=" "+temp
-				                             	role[splits[1]]=role[splits[1]].strip()
-				                        else:
-				                               	role[splits[1]]=temp.strip()
-				       	elif(len(splits)==3):
+				                        	role[splits[1]]=role[splits[1]].strip()
+				                   	else:
+				                            role[splits[1]]=temp.strip()
+					elif(len(splits)==3):
 				             	if splits[1]+"-"+splits[2] in role:
 				              		role[splits[1]+"-"+splits[2]]+=" "+temp
-				             		role[splits[1]+"-"+splits[2]]=role[splits[1]+"-"+splits[2]].strip()
-						else:
+				              		role[splits[1]+"-"+splits[2]]=role[splits[1]+"-"+splits[2]].strip()
+				             	else:
 				                	role[splits[1]+"-"+splits[2]]=temp.strip()
-				      	temp=""          
-			      	i+=1
+					temp=""          
+				i+=1
 			if("V" in role):
 				roles+=[role]
 		annotations['words']=words
-		annotations['pos']=zip(words,pos)
-		annotations['ner']=zip(words,ner)
+		annotations['pos']=list(zip(words,pos))
+		annotations['ner']=list(zip(words,ner))
 		annotations['srl']=roles
-		annotations['verbs']=filter(lambda x: x!="-",verb)
-		annotations['chunk']=zip(words,chunk)
+		annotations['verbs']=[x for x in verb if x!="-"]
+		annotations['chunk']=list(zip(words,chunk))
 		annotations['dep_parse']=""
 		annotations['syntax_tree']=""
 		for (w,s,p) in zip(words,syn,pos):
@@ -288,8 +293,16 @@ class Annotator:
 		return annotations
 def test():			
 	annotator=Annotator()
-	print annotator.getBatchAnnotations(["He killed the man with a knife and murdered him with a dagger.","He is a good boy."],dep_parse=True)
-	print annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['dep_parse']
-	print annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['chunk']
+	print((annotator.getBatchAnnotations(["He killed the man with a knife and murdered him with a dagger.","He is a good boy."],dep_parse=True)))
+	"""
+	print((annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['dep_parse']))
+	print((annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['chunk']))
+	#print((annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['pos']))
+	print((annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['ner']))
+	#print((annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['srl']))
+	#print((annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['syntax_tree']))
+	#print((annotator.getAnnotations("Republican candidate George Bush was great.",dep_parse=True)['words']))
+	#"""
+
 if __name__ == "__main__":
 	test()

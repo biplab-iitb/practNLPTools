@@ -1,0 +1,30 @@
+language: python 
+
+python:
+       - "2.7"
+       - "3.3"
+       - "3.4"
+       - "3.5"
+       - "3.6"
+       
+matrix:
+  allow_failures:
+    - python: "2.7"
+  include:
+   - os: 
+      - linux
+      - osx
+     dist: trusty
+     sudo: required
+
+
+before_install:
+#- sudo apt-get update
+- chmod +x setup.py
+#- sudo apt-get install python3
+ 
+script: 
+ - python practnlptools/tool2.py
+ - python3 practnlptools/tool2.py 
+
+after_success: coveralls
